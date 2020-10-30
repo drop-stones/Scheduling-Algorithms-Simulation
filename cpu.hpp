@@ -13,19 +13,53 @@ enum class schedule_kind { fcfs, sjf, rr, priority, priority_rr };
 
 class task {
 public:
-    task (std::string n, int t, int p, int b) : name {n}, tid {t}, priority {p}, burst {b} {}
+    task (std::string n, int t, int p, int b) : name {n}, tid {t}, priority {p}, burst {b}, wait {0} {}
+    task () : tid {0}, priority {0}, burst {0}, wait {0} {}
     ~task () {}
 
-    void print (int slice) const {
-        std::cout << "task = [" << name << "] [" << priority << "] [" << burst << "] for " << slice << " units.\n";
+    void set (std::string n, int p, int b) {
+        name = n;
+        priority = p;
+        burst = b;
     }
 
-private:
+    void set_wait (int w)
+    {
+        wait = w;
+    }
+
+    void print (int slice) const {
+        std::cout << wait << " wait: " << "task { name:" << name << ", priority:" << priority << ", burst:" << burst << " } for " << slice << " units.\n";
+    }
+
+public:
     std::string name;
     int tid;
     int priority;
-    int burst; 
+    int burst;
+    int wait;
 };
+
+std::ostream& operator<< (std::ostream& os, const task& t)
+{
+    // return os << "task = [" << t.name << "] [" << t.priority << "] [" << t.burst << "]\n";
+    t.print (1);
+    return os;
+}
+
+std::istream& operator>> (std::istream& is, task& t)
+{
+    char c;
+    std::string name;
+    int priority, burst;
+    while (is >> c && c != ',')
+        name += c;
+    is >> priority;
+    is >> c;
+    is >> burst;
+    t.set (name, priority, burst);
+    return is;
+}
 
 class cpu {
 public:
