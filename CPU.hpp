@@ -6,8 +6,9 @@
 #define CPU_H
 
 #include <iostream>
-#include <deque>
 #include <string>
+
+namespace cpu {
 
 enum class schedule_kind { fcfs, sjf, rr, priority, priority_rr };
 
@@ -61,15 +62,17 @@ std::istream& operator>> (std::istream& is, task& t)
     return is;
 }
 
-class cpu {
+class CPU {
 public:
-    //cpu (std::initializer_list<class task> l, int q) : task_list {l}, quantum {q} {}
-    //cpu (class task& t, int q) : task_list {std::deque<class task> (1, t)}, quantum {q} {}
-    virtual ~cpu () {}
+    //CPU (std::initializer_list<class task> l, int q) : task_list {l}, quantum {q} {}
+    //CPU (class task& t, int q) : task_list {std::deque<class task> (1, t)}, quantum {q} {}
+    virtual ~CPU () {}
 
     // virtual functions
     virtual void insert (class task& t) = 0;
     virtual void run () = 0;
 };
+
+} // namespace cpu
 
 #endif

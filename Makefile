@@ -1,12 +1,21 @@
 
 CXX=clang++
+CXX_FLAGS= -std=c++17
+
+SCHEDULE := schedule_fcfs schedule_sjf
+SCHEDULE_HPP := $(SCHEDULE:%=%.hpp)
+
+EXE := schedule_all
 
 .PHONY: all clean
 
-all: schedule_fcfs
+all: $(EXE)
 
-schedule_fcfs: schedule_fcfs.hpp cpu.hpp main.cpp
-	$(CXX) -g -o schedule_fcfs main.cpp
+schedule_all: CPU.hpp main.cpp $(SCHEDULE_HPP)
+	$(CXX) $(CXX_FLAGS) -g -o schedule_all main.cpp
+
+#schedule_fcfs: schedule_fcfs.hpp cpu.hpp main.cpp
+#	$(CXX) -g -o schedule_fcfs main.cpp
 
 clean:
-	rm -rf schedule_fcfs
+	rm -rf $(EXE)

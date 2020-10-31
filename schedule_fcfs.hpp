@@ -2,9 +2,13 @@
  * Implementation of First-Come First-Served Scheduling.
  */
 
-#include "cpu.hpp"
+#include "CPU.hpp"
 
-class fcfs_cpu : public cpu {
+#include <deque>
+
+namespace cpu {
+
+class fcfs_cpu : public CPU {
 public:
     fcfs_cpu (std::initializer_list<class task> l, int q) : task_list {l}, quantum {q}, duration {0} {}
     fcfs_cpu (class task& t, int q) : task_list {std::deque<class task> (1, t)}, quantum {q}, duration {0} {}
@@ -32,3 +36,5 @@ protected:
     int duration;
     int sum_wait;
 };
+
+} // namespace cpu
