@@ -20,15 +20,25 @@ public:
         task_list.push_back (t);
     }
 
+    class task* fetch_task () override
+    {
+        if (task_list.empty ())
+            return nullptr;
+            
+        auto t = &task_list.front ();
+        task_list.pop_front ();
+        return t;
+    }
+
     void run () override
     {
-        for (auto t = task_list.front (); !task_list.empty (); t = task_list.front ()) {
-            t.set_wait (duration);
-            t.print (1);
-            duration += t.burst;
-            task_list.pop_front ();
+        for (auto t = fetch_task (); t != nullptr; t = fetch_task ()) {
+            t->set_wait (duration);
+            t->print (1);
+            duration += t->get_burst ();
         }
     }
+
 
 protected:
     std::deque<class task> task_list;

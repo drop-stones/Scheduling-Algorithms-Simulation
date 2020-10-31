@@ -24,16 +24,19 @@ public:
         burst = b;
     }
 
-    void set_wait (int w)
-    {
+    void set_wait (int w) {
         wait = w;
+    }
+
+    int get_burst () const {
+        return burst;
     }
 
     void print (int slice) const {
         std::cout << wait << " wait: " << "task { name:" << name << ", priority:" << priority << ", burst:" << burst << " } for " << slice << " units.\n";
     }
 
-public:
+private:
     std::string name;
     int tid;
     int priority;
@@ -70,6 +73,7 @@ public:
 
     // virtual functions
     virtual void insert (class task& t) = 0;
+    virtual class task* fetch_task () = 0;
     virtual void run () = 0;
 };
 
