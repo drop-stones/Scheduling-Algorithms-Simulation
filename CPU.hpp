@@ -18,21 +18,30 @@ public:
     task () : tid {0}, priority {0}, burst {0}, wait {0} {}
     ~task () {}
 
-    void set (std::string n, int p, int b) {
+    void set (std::string n, int p, int b)
+    {
         name = n;
         priority = p;
         burst = b;
     }
 
-    void set_wait (int w) {
+    void set_wait (int w)
+    {
         wait = w;
     }
 
-    int get_burst () const {
+    std::string get_name () const
+    {
+        return name;
+    }
+
+    int get_burst () const
+    {
         return burst;
     }
 
-    void print (int slice) const {
+    void print (int slice) const
+    {
         std::cout << wait << " wait: " << "task { name:" << name << ", priority:" << priority << ", burst:" << burst << " } for " << slice << " units.\n";
     }
 
