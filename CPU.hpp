@@ -67,14 +67,23 @@ std::istream& operator>> (std::istream& is, task& t)
 
 class CPU {
 public:
-    //CPU (std::initializer_list<class task> l, int q) : task_list {l}, quantum {q} {}
-    //CPU (class task& t, int q) : task_list {std::deque<class task> (1, t)}, quantum {q} {}
+    CPU (int q, int d, int s) : quantum {q}, duration {d}, sum_wait {s} {}
     virtual ~CPU () {}
 
-    // virtual functions
     virtual void insert (class task& t) = 0;
     virtual class task* fetch_task () = 0;
-    virtual void run () = 0;
+    virtual class task* process_one_task (class task* t) = 0;
+    
+    void run () {
+        for (task* t = fetch_task (); t != nullptr; t = fetch_task ()) {
+            process_one_task (t);
+        }
+    }
+
+protected:
+    int quantum;
+    int duration;
+    int sum_wait;
 };
 
 } // namespace cpu

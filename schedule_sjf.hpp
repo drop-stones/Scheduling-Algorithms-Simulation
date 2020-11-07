@@ -20,9 +20,9 @@ bool operator> (const class task &t1, const class task &t2) {
 
 class sjf_cpu : public CPU {
 public:
-    sjf_cpu (std::initializer_list<class task> l, int q) : task_list {l}, quantum {q}, duration {0} {}
-    sjf_cpu (class task& t, int q) : task_list {t}, quantum {q}, duration {0} {}
-    sjf_cpu (int q) : task_list {}, quantum {q}, duration {0} {}
+    sjf_cpu (std::initializer_list<class task> l, int q) : task_list {l}, CPU {q, 0, 0} {}
+    sjf_cpu (class task& t, int q) : task_list {t}, CPU {q, 0, 0} {}
+    sjf_cpu (int q) : task_list {}, CPU {q, 0, 0} {}
     ~sjf_cpu () {}
 
     void insert (class task& t) override
@@ -41,20 +41,20 @@ public:
         return t;
     }
 
-    void run () override
+    class task* process_one_task (class task* t) override
     {
-        for (auto t = fetch_task (); t != nullptr; t = fetch_task ()) {
-            t->set_wait (duration);
-            t->print (1);
-            duration += t->get_burst ();
-        }
+        if (t == nullptr)
+            return nullptr;
+        
+        t->set_wait (duration);
+        t->print (1);
+        duration += t->get_burst ();
+        return t;
     }
+
 
 private:
     std::deque<class task> task_list;
-    int quantum;
-    int duration;
-    int sum_wait;
 };
 
 } // namespace cpu

@@ -10,9 +10,9 @@ namespace cpu {
 
 class fcfs_cpu : public CPU {
 public:
-    fcfs_cpu (std::initializer_list<class task> l, int q) : task_list {l}, quantum {q}, duration {0} {}
-    fcfs_cpu (class task& t, int q) : task_list {std::deque<class task> (1, t)}, quantum {q}, duration {0} {}
-    fcfs_cpu (int q) : task_list {}, quantum {q}, duration {0} {}
+    fcfs_cpu (std::initializer_list<class task> l, int q) : task_list {l}, CPU {q, 0, 0} {}
+    fcfs_cpu (class task& t, int q) : task_list {std::deque<class task> (1, t)}, CPU {q, 0, 0} {}
+    fcfs_cpu (int q) : task_list {}, CPU {q, 0, 0} {}
     ~fcfs_cpu () {}
 
     void insert (class task& t) override
@@ -30,21 +30,25 @@ public:
         return t;
     }
 
-    void run () override
+    class task* process_one_task (class task* t) override
     {
-        for (auto t = fetch_task (); t != nullptr; t = fetch_task ()) {
-            t->set_wait (duration);
-            t->print (1);
-            duration += t->get_burst ();
-        }
+        if (t == nullptr)
+            return nullptr;
+        
+        t->set_wait (duration);
+        t->print (1);
+        duration += t->get_burst ();
+        return t;
+    }
+
+    std::deque<class task> get_task_list ()
+    {
+        return task_list;
     }
 
 
-protected:
+private:
     std::deque<class task> task_list;
-    int quantum;
-    int duration;
-    int sum_wait;
 };
 
 } // namespace cpu
