@@ -24,7 +24,18 @@ public:
 
     class task* fetch_task () override
     {
-        // TODO
+        if (task_lists.empty ())
+            return nullptr;
+        
+        for (int i = 1; i <= 10; i++) {
+            if (task_lists[i].empty ())
+                continue;
+            
+            auto t = &task_lists[i].front ();
+            task_lists[i].pop_front ();
+            return t;
+        }
+
         return nullptr;
     }
 

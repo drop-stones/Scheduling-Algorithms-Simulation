@@ -17,6 +17,7 @@ void FetchTaskTest ()
     assert (tsk->get_name() == "P1");
 }
 
+
 int main (void)
 {
     FetchTaskTest ();
