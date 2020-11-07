@@ -5,9 +5,9 @@
 
 #include <stdlib.h>
 #include <fstream>
-#include <sstream>
 #include "schedule_fcfs.hpp"
 #include "schedule_sjf.hpp"
+#include "schedule_pri.hpp"
 
 using namespace cpu;
 
@@ -22,6 +22,7 @@ int main (int argc, char *argv [])
 
     fcfs_cpu fcfs {10};
     sjf_cpu sjf {10};
+    pri_cpu pri {10};
 
     std::ifstream ifs ("./processes.txt");
     char buf [1024];
@@ -35,4 +36,7 @@ int main (int argc, char *argv [])
     
     std::cout << "Schedule : " << "sjf" << '\n';
     sjf.run ();
+
+    std::cout << "Schedule : " << "pri" << '\n';
+    pri.run ();
 }

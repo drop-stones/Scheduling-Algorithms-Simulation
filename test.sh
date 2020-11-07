@@ -13,6 +13,9 @@ if [ -d "tests/" ]; then
     echo "FCFS test..."
     ./fcfs_test
 
+    echo "PRI test..."
+    ./pri_test
+
     # Clean
     echo "Clean ..."
     make clean

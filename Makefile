@@ -2,7 +2,7 @@
 CXX=clang++
 CXX_FLAGS= -std=c++17
 
-SCHEDULE := schedule_fcfs schedule_sjf
+SCHEDULE := schedule_fcfs schedule_sjf schedule_pri
 SCHEDULE_HPP := $(SCHEDULE:%=%.hpp)
 
 EXE := schedule_all

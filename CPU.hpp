@@ -35,6 +35,11 @@ public:
         return name;
     }
 
+    int get_priority () const
+    {
+        return priority;
+    }
+
     int get_burst () const
     {
         return burst;
