@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: quay.io/cybozu/ubuntu-dev:20.04
     steps:
       - checkout
       - run:
