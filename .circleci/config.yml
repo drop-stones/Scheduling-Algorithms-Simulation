@@ -6,6 +6,18 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Create Artifacts for unit-test
+          command: |
+            cd tests/
+            make
+      - run:
+          name: Create TmpDir for unit-test
+          command: |
+            mkdir -p /tmp/tests
+            cp tests/fcfs_test tests/pri_test /tmp/tests
+      - store_artifacts:
+          path: /tmp/tests
+      - run:
           name: Test
           command: |
             ./test.sh
