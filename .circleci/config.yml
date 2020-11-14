@@ -6,11 +6,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install clang
-          command: |
-            apk update
-            apk add clang
-      - run:
           name: Test
           command: |
             ./test.sh
