@@ -1,5 +1,5 @@
 
-CXX=clang++
+CXX=g++
 CXX_FLAGS= -std=c++17
 
 SCHEDULES := fcfs pri #sjf
