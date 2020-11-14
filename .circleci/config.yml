@@ -6,8 +6,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install clang
+          command: |
+            sudo apt-get install clang
+      - run:
           name: Test
           command: |
-            echo "Hello, World!"
-            ls -al
             ./test.sh
