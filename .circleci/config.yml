@@ -4,8 +4,10 @@ jobs:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
+      - checkout
       - run:
           name: Test
           command: |
             echo "Hello, World!"
             ls -al
+            ./test.sh
